@@ -25,10 +25,14 @@ fajl = 's1_bgaa9a.wav'
 
 (sr,sig1) = wav.read(datadir + cleandir + fajl)
 
+from sklearn.preprocessing import normalize
+
 sig1mono = sig1[:, 0]
 print (sig1mono)
 
-mfcc_clean = features.mfcc(sig1mono,sr, winlen=0.01, winstep=0.01, numcep=39, nfilt=78)
+mfcc_clean_raw = features.mfcc(sig1mono,sr, winlen=0.01, winstep=0.01, numcep=39, nfilt=78)
+
+mfcc_clean = normalize(mfcc_clean_raw, axis=1)
 
 print (mfcc_clean)
 
@@ -37,7 +41,9 @@ print (mfcc_clean)
 sig2mono = sig2[:, 0]
 print (sig2mono)
 
-mfcc_noisy = features.mfcc(sig2mono,sr, winlen=0.01, winstep=0.01, numcep=39, nfilt=78)
+mfcc_noisy_raw = features.mfcc(sig2mono,sr, winlen=0.01, winstep=0.01, numcep=39, nfilt=78)
+
+mfcc_noisy = normalize(mfcc_noisy_raw, axis=0)
 
 print (mfcc_noisy)
 
@@ -69,6 +75,8 @@ fig, axes = plt.subplots(nrows=4, ncols=1)
 vmin = min(min(np.amin(mfcc_clean), np.amin(mfcc_noisy)), min(np.amin(ds_mfcc_clean), np.amin(ds_mfcc_noisy)))
 vmax = max(max(np.amax(mfcc_clean), np.amax(mfcc_noisy)), max(np.amax(ds_mfcc_clean), np.amax(ds_mfcc_noisy)))
 
+print(min(np.amin(mfcc_clean), np.amin(mfcc_noisy)))
+print(max(np.amax(mfcc_clean), np.amax(mfcc_noisy)))
 
 axes[0].pcolormesh(mfcc_clean.transpose(), vmin=vmin, vmax=vmax)
 axes[0].set_aspect('equal')
