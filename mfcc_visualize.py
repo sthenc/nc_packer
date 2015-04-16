@@ -42,7 +42,7 @@ print (mfcc_noisy)
 
 ml.rcParams['image.cmap'] = 'nipy_spectral'
 
-fig = plt.figure()
+fig = plt.figure(figsize=(10, 10))
 
 ax = fig.add_subplot(211)
 plt.pcolormesh(mfcc_clean.transpose())
@@ -52,6 +52,16 @@ ax = fig.add_subplot(212)
 plt.pcolormesh(mfcc_noisy.transpose())
 ax.set_aspect('equal')
 
-#plt.colorbar(orientation='horizontal', ax=cax)
-plt.tight_layout()
+# add colorbar 
+
+#cax = fig.add_axes([0.85, 0.1, 0.1, 0.7])
+fig.subplots_adjust(right=0.8)
+cax = fig.add_axes([0, 0.1, 1, 0.8], aspect='auto', frameon=False, xticks=[], yticks=[])
+cax.get_xaxis().set_visible(False)
+cax.get_yaxis().set_visible(False)
+cax.patch.set_alpha(0)
+cax.set_frame_on(False)
+plt.colorbar(orientation='vertical', ax=cax)
+
+#plt.tight_layout()
 plt.show()
