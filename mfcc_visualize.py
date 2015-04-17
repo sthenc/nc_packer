@@ -25,14 +25,10 @@ fajl = 's1_bgaa9a.wav'
 
 (sr,sig1) = wav.read(datadir + cleandir + fajl)
 
-from sklearn.preprocessing import normalize
-
 sig1mono = sig1[:, 0]
 print (sig1mono)
 
 mfcc_clean_raw = features.mfcc(sig1mono,sr, winlen=0.01, winstep=0.01, numcep=39, nfilt=78)
-
-mfcc_clean = normalize(mfcc_clean_raw, axis=1)
 
 print (mfcc_clean)
 
@@ -43,7 +39,6 @@ print (sig2mono)
 
 mfcc_noisy_raw = features.mfcc(sig2mono,sr, winlen=0.01, winstep=0.01, numcep=39, nfilt=78)
 
-mfcc_noisy = normalize(mfcc_noisy_raw, axis=0)
 
 print (mfcc_noisy)
 
@@ -84,20 +79,16 @@ axes[0].set_aspect('equal')
 axes[1].pcolormesh(mfcc_noisy.transpose(), vmin=vmin, vmax=vmax)
 axes[1].set_aspect('equal')
 
-#axes[2].pcolormesh(mfcc_noisy.transpose(), vmin=vmin, vmax=vmax)
 axes[2].pcolormesh(ds_mfcc_clean.transpose(), vmin=vmin, vmax=vmax)
 axes[2].set_aspect('equal')
 
-#a = axes[3].pcolormesh(mfcc_noisy.transpose(), vmin=vmin, vmax=vmax)
 a= axes[3].pcolormesh(ds_mfcc_noisy.transpose(), vmin=vmin, vmax=vmax)
 axes[3].set_aspect('equal')
 
 
 # add colorbar 
 
-#cax = fig.add_axes([0.85, 0.1, 0.1, 0.7])
 fig.subplots_adjust(right=0.8)
-#cax = fig.add_axes([0, 0.1, 0.2, 0.8], aspect='auto', frameon=False, xticks=[], yticks=[])
 cax = fig.add_axes([0.80, 0.05, 0.1, 0.9], aspect='auto', frameon=False, xticks=[], yticks=[])
 cax.get_xaxis().set_visible(False)
 cax.get_yaxis().set_visible(False)
