@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt
 import features
 import scipy.io.wavfile as wav
 
+from wav2mfcc import wav2mfcc
+
 
 #if __name__ == "__main__":
 
@@ -25,25 +27,9 @@ fajl = 's1_bgaa9a.wav'
 
 # compute my mfcc features for this file
 
-(sr,sig1) = wav.read(datadir + cleandir + fajl)
+mfcc_clean = wav2mfcc(datadir + cleandir + fajl)
 
-sig1mono = sig1[:, 0]
-print (sig1mono)
-
-mfcc_clean= features.mfcc(sig1mono,sr, winlen=0.01, winstep=0.01, numcep=39, nfilt=78)
-
-print (mfcc_clean)
-
-(sr,sig2) = wav.read(datadir + lilnoise + fajl)
-
-sig2mono = sig2[:, 0]
-print (sig2mono)
-
-mfcc_noisy= features.mfcc(sig2mono,sr, winlen=0.01, winstep=0.01, numcep=39, nfilt=78)
-
-
-print (mfcc_noisy)
-
+mfcc_noisy = wav2mfcc(datadir + lilnoise + fajl)
 
 # mine .nc file
 
