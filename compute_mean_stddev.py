@@ -38,41 +38,26 @@ for f in onlyfiles:
 
 	lilN = sh[0]
 
-	for i in range(0, NC):
-		means[i] += sum(mfccs[0:lilN, i])
-
-
-	N = N + lilN
+	for j in range (0, lilN):
+		N += 1
+		for i in range(0, NC):
+			x = mfccs[j][i]
+			delta = x - means[i]
+			means[i] += delta / N
+			stddevs[i] += delta * (x - means[i])
+	
+from pprint import pprint	
 
 print(N)
 print(means)
 
-means = means/N
-
-from pprint import pprint
 pprint(means)
 	
-
-for f in onlyfiles:
-#f = onlyfiles[0]
-
-	mfccs = wav2mfcc(mypath + f)
-
-	sh = mfccs.shape
-
-	lilN = sh[0]
-
-	for i in range(0, NC):
-		stddevs[i] += sum(mfccs[0:lilN, i] - means[i])**2
-
-#print(stddevs)
-
-stddevs /= N
-print(stddevs)
+stddevs /= N - 1
 
 from math import sqrt
 
 for i in range(0, NC):
 	stddevs[i] = sqrt(stddevs[i])
-	
+
 pprint(stddevs)
