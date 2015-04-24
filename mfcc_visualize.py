@@ -10,6 +10,8 @@ import scipy.io.wavfile as wav
 from wav2mfcc import wav2mfcc
 
 
+
+
 #if __name__ == "__main__":
 
 datadir = '/mnt/data/Fer/diplomski/nc_packer/test_data/PCCdata16kHz/devel/isolated/'
@@ -27,9 +29,18 @@ fajl = 's1_bgaa9a.wav'
 
 # compute my mfcc features for this file
 
-mfcc_clean = wav2mfcc(datadir + cleandir + fajl)
+from mean_stddev import means, stddevs
 
-mfcc_noisy = wav2mfcc(datadir + lilnoise + fajl)
+#means[0] = 0
+#stddevs[0] = 1
+
+mfcc_clean_not_norm = wav2mfcc(datadir + cleandir + fajl)
+
+mfcc_clean = (mfcc_clean_not_norm - means) / stddevs
+
+mfcc_noisy_not_norm = wav2mfcc(datadir + lilnoise + fajl)
+
+mfcc_noisy = (mfcc_noisy_not_norm - means) / stddevs
 
 # mine .nc file
 
