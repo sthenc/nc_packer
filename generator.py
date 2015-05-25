@@ -35,7 +35,7 @@ def get_filenames_dev(path):
 	return [x.split('.')[0] for x in ret]
 	
 
-filenames = get_filenames_dev(clean_dirpath) # [ 1:10 ]
+filenames = get_filenames_dev(clean_dirpath)  [ 1:10 ]
 
 print (filenames)
 htklist = []
@@ -54,6 +54,7 @@ for f in filenames:
 	
 	
 for n in noisy_dirpaths:
+	print (n)
 	for f in filenames:
 		
 		inputfile = noisy_basepath + n + noisy_prefix  + f + input_prefix
@@ -71,8 +72,10 @@ for n in noisy_dirpaths:
 print (htklist)
 
 
+# write the mapfile for htk2nc
+# in format "tag inputpath targetpath"
 fajl = open(mapfile, "w")
 
 for h in htklist:
-	fajl.write(h[0] + ' ' + h[1] + ' ' + h[2] + "\n")
+	fajl.write(h[0] + ' 1 ' + h[1] + ' ' + h[2] + "\n")
 	
