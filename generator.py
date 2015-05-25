@@ -1,40 +1,56 @@
 #!/usr/bin/python
+import os
 
-komanda_feature = "SMILExtract -C ./MFCC12_E_D_A.conf " #-I input.wav -O output.mfcc.htk"
+komanda_feature = "SMILExtract -C ../MFCC12_E_D_A.conf -logfile smile.log -noconsoleoutput 1 -appendLogfile 1 " #-I input.wav -O output.mfcc.htk"
 
 
-clean_dirpath = "./"
+clean_dirpath = "/mnt/data/Fer/diplomski/CHiME2/chime2-grid/devel/reverberated/"
 
-clean_prefix = "clean_"
+clean_prefix = ""
 
-noisy_prefix = "9dB_s"
+noisy_basepath = "/mnt/data/Fer/diplomski/CHiME2/aasp-chime-grid/devel/isolated/"
+noisy_dirpaths = ["0dB", "3dB", "6dB", "9dB", "m3dB", "m6dB"]
+
+noisy_prefix = "/s"
 
 input_prefix = ".wav"
 output_prefix = ".mfcc.htk"
 
-filenames = [ "1_bgaa9a" ]  
+tmp_dirpath = "./tmp/" 
 
-noisy_basepath = "."
-noisy_dirpaths = ["/"]
+mapfile = "dev_map.txt"
 
-tmp_dirpath = "./tmp" 
+os.system('rm -r ' + tmp_dirpath + "*")
+
+for dr in noisy_dirpaths:
+	if not os.path.exists(tmp_dirpath + dr):
+		os.makedirs(tmp_dirpath + dr)
 
 
+
+def get_filenames_dev(path):
+	
+	ret = os.listdir(path)
+	
+	return [x.split('.')[0] for x in ret]
+	
+
+filenames = get_filenames_dev(clean_dirpath) # [ 1:10 ]
+
+print (filenames)
 htklist = []
 
-import os
+os.chdir(tmp_dirpath)
 
 for f in filenames:
 	
 	inputfile = clean_dirpath + clean_prefix  + f + input_prefix
 	
-	outputfile = tmp_dirpath + clean_prefix + f + output_prefix
+	outputfile = clean_prefix + f + output_prefix
 	
 	komanda = komanda_feature + " -I " + inputfile + " -O " + outputfile
 	
 	os.system(komanda)
-	
-	#htklist.append(outputfile)
 	
 	
 for n in noisy_dirpaths:
@@ -42,14 +58,21 @@ for n in noisy_dirpaths:
 		
 		inputfile = noisy_basepath + n + noisy_prefix  + f + input_prefix
 		
-		outputfile = tmp_dirpath + n + noisy_prefix + f + output_prefix
+		outputfile = n + noisy_prefix + f + output_prefix
 		
 		komanda = komanda_feature + " -I " + inputfile + " -O " + outputfile
 		
 		os.system(komanda)
 		
-		htklist.append((outputfile, tmp_dirpath + clean_prefix + f + output_prefix))
+		htklist.append((n + "/" + f, outputfile, clean_prefix + f + output_prefix))
 	
 	
 
 print (htklist)
+
+
+fajl = open(mapfile, "w")
+
+for h in htklist:
+	fajl.write(h[0] + ' ' + h[1] + ' ' + h[2] + "\n")
+	
