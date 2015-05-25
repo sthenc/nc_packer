@@ -57,7 +57,11 @@ stddevs /= N - 1
 
 from math import sqrt
 
+delta = 0.0000001
+
 for i in range(0, NC):
 	stddevs[i] = sqrt(stddevs[i])
+	if abs(stddevs[i] - 0.0) < delta:
+		stddevs[i] = 1.0
 
 pprint(stddevs)

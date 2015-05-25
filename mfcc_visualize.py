@@ -20,7 +20,9 @@ cleandir = 'clean/'
 
 lilnoise = 'm3dB/'
 
-fajl = 's1_bgaa9a.wav'
+#fajl = 's1_bgaa9a.wav'
+fajl = 's2_sgiv1p.wav'
+
 
 # Input #0, wav, from 's1_bgaa9a.wav':
 #   Duration: 00:00:01.25, bitrate: 512 kb/s
@@ -56,10 +58,12 @@ dsin  = ds.variables['inputs']
 dsout = ds.variables['targetPatterns'] 
 
 print(dslen[:])
-sz = dslen[0]
+exstart =  0 #dslen[0]
 
-ds_mfcc_clean = dsin [0:sz, :]
-ds_mfcc_noisy = dsout[0:sz, :]
+exend = exstart + dslen[0] #dslen[1]
+
+ds_mfcc_clean = dsin [exstart:exend, :]
+ds_mfcc_noisy = dsout[exstart:exend, :]
 
 # plot the mfcc features from original chime file and compare to the ones in the .nc database
 ml.rcParams['image.cmap'] = 'nipy_spectral'
@@ -96,4 +100,13 @@ cax.set_frame_on(False)
 plt.colorbar(a, orientation='vertical', ax=cax, aspect=60)
 
 plt.tight_layout()
-plt.show()
+#plt.show()
+
+import time
+import datetime
+
+ts = time.time()
+
+stamp = datetime.datetime.fromtimestamp(ts).strftime('%Y_%m_%d_%H_%M_%S')
+
+plt.savefig('figures/mfcc_compare_' + stamp + '.png', bbox_inches='tight')
