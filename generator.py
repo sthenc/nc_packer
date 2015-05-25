@@ -35,7 +35,7 @@ def get_filenames_dev(path):
 	return [x.split('.')[0] for x in ret]
 	
 
-filenames = get_filenames_dev(clean_dirpath)  [ 1:10 ]
+filenames = get_filenames_dev(clean_dirpath) 
 
 print (filenames)
 htklist = []
