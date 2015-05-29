@@ -42,8 +42,6 @@ def get_filenames_dev(path):
 	for root, dirs, files in os.walk(".", topdown=False):
 		for name in files:
 			ret.append(os.path.join(root, name)[2:])
-		for name in dirs:
-			ret.append(os.path.join(root, name)[2:])
 	
 	os.chdir(svpth)
 	return ret

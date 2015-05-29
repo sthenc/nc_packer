@@ -2,10 +2,9 @@
 
 import os
 
-os.chdir('./tmp/')
+os.chdir('./tmp_test/')
 
 komanda = 'htk2nc test_map.txt ../test.nc'
-
 
 os.system(komanda)
 

@@ -34,8 +34,6 @@ def get_filenames_dev(path):
 	for root, dirs, files in os.walk(".", topdown=False):
 		for name in files:
 			ret.append(os.path.join(root, name)[2:])
-		for name in dirs:
-			ret.append(os.path.join(root, name)[2:])
 	
 	
 	os.chdir(svpth)
@@ -71,5 +69,5 @@ print (htklist)
 fajl = open(mapfile, "w")
 
 for h in htklist:
-	fajl.write(h[0] + ' 1 ' + h[1] +  "\n")
+	fajl.write(h[0] + ' 1 ' + h[1] +  " " + h[1] + "\n")
 	
