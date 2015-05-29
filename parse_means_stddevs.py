@@ -4,6 +4,7 @@ import numpy as np
 
 from pprint import pprint	
 
+# parse output of nc-standardize
 
 filename = 'train_means_stddevs.txt'
 
@@ -29,9 +30,9 @@ for i in range(0, 39):
 	inmeans  [i] = float(tokens[5])
 	instddevs[i] = float(tokens[7])
 	
-print("inmeans = \\ \nnp.", end="")
+print("inmeans = \\\nnp.", end="")
 pprint(inmeans)
-print("instddevs = \\ \nnp.", end="")
+print("instddevs = \\\nnp.", end="")
 pprint(instddevs)
 
 for i in range(39, 78):
@@ -42,7 +43,7 @@ for i in range(39, 78):
 	outmeans  [i - 39] = float(tokens[5])
 	outstddevs[i - 39] = float(tokens[7])
 	
-print("outmeans = \\ \nnp.", end="")
+print("outmeans = \\\nnp.", end="")
 pprint(outmeans)
-print("outstddevs = \\ \nnp.", end="")
+print("outstddevs = \\\nnp.", end="")
 pprint(outstddevs)
