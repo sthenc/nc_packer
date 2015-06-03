@@ -4,7 +4,7 @@ import os
 komanda_feature = "SMILExtract -C ../MFCC12_E_D_A.conf -logfile smile_train.log -appendLogfile 1 " #-I input.wav -O output.mfcc.htk"
 
 
-clean_dirpath = "/mnt/data/Fer/diplomski/CHiME2/aasp-chime-grid/train/clean/"
+clean_dirpath = "/mnt/data/Fer/diplomski/CHiME2/aasp-chime-grid/train/reverberated/"
 
 clean_prefix = ""
 
