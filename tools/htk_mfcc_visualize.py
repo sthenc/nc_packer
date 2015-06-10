@@ -10,7 +10,23 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("filename", help="Input mfcc.htk file")
 parser.add_argument("-on", "--output-norm",
-	help="Use output mean and stddev values instead of mean and stddevvalues computed on inputs for normalization",
+	help="Normalize using output mean and stddev values",
+	action="store_true")
+parser.add_argument("-in", "--input-norm",
+	help="Normalize using input mean and stddev values",
+	action="store_true")
+parser.add_argument("-od", "--output-denorm",
+	help="Denormalize using output mean and stddev values",
+	action="store_true")
+parser.add_argument("-id", "--input-denorm",
+	help="Denormalize using input mean and stddev values",
+	action="store_true")	
+parser.add_argument("-n", "--normalized",
+	help="Output already normalized",
+	action="store_true")
+	
+parser.add_argument("-cmn", "--only-means",
+	help="Use only means, not stddevs",
 	action="store_true")
 args = parser.parse_args()
 
@@ -20,7 +36,7 @@ print (args.filename)
 
 # NOTE: if - else
 
-if not args.output_norm :  # use values computed on input vectors in training set
+if args.input_norm or args.input_denorm:  # use values computed on input vectors in training set
 	means = \
 	np.array([ -1.22538000e+01,  -8.66553000e+00,   4.37193000e+00,
 			-1.79456000e+01,   3.83324000e-01,  -1.54190000e+01,
@@ -45,7 +61,7 @@ if not args.output_norm :  # use values computed on input vectors in training se
 			 1.22298  ,   1.26538  ,   1.35223  ,   1.38832  ,   1.39287  ,
 			 1.37075  ,   1.35812  ,   1.2741   ,   0.0830071])
 			 
-else:					# use values computed on output vectors in training set
+elif args.output_norm or args.output_denorm:					# use values computed on output vectors in training set
 	means = \
 	np.array([ -3.23225000e+00,  -2.92348000e+00,   1.01032000e+01,
 			-8.46742000e+00,  -1.36592000e+01,  -8.89385000e+00,
@@ -69,6 +85,32 @@ else:					# use values computed on output vectors in training set
 			 0.487057,   1.6352  ,   1.61938 ,   1.54493 ,   1.81739 ,
 			 1.94619 ,   1.84266 ,   1.89011 ,   1.86456 ,   1.7389  ,
 			 1.63711 ,   1.58745 ,   1.43842 ,   0.181184])
+else:
+	means = \
+	np.array([
+			0.0,  0.0,  0.0,
+			0.0,  0.0,  0.0,
+			0.0,  0.0,  0.0,
+			0.0,  0.0,  0.0,
+			0.0,  0.0,  0.0,
+			0.0,  0.0,  0.0,
+			0.0,  0.0,  0.0,
+			0.0,  0.0,  0.0,
+			0.0,  0.0,  0.0,
+			0.0,  0.0,  0.0,
+			0.0,  0.0,  0.0,
+			0.0,  0.0,  0.0,
+			0.0,  0.0,  0.0])
+	stddevs = \
+	np.array([ 
+			1.0,  1.0,  1.0,  1.0,  1.0,
+			1.0,  1.0,  1.0,  1.0,  1.0,
+			1.0,  1.0,  1.0,  1.0,  1.0,
+			1.0,  1.0,  1.0,  1.0,  1.0,
+			1.0,  1.0,  1.0,  1.0,  1.0,
+			1.0,  1.0,  1.0,  1.0,  1.0,
+			1.0,  1.0,  1.0,  1.0,  1.0,
+			1.0,  1.0,  1.0,  1.0]) 
 
 
 
@@ -78,9 +120,20 @@ io_klasa = hm.HTKFeat_read(args.filename)
 
 mfcc_data = io_klasa.getall()
 
-# normalize
+# normalize or denormalize
 
-mfcc_data = (mfcc_data - means) / stddevs
+if not args.only_means:
+	if args.output_denorm or args.input_denorm:
+		mfcc_data = mfcc_data * stddevs + means
+	else:
+		mfcc_data = (mfcc_data - means) / stddevs
+else:
+	if args.output_denorm or args.input_denorm:
+		mfcc_data = mfcc_data + means
+	else:
+		mfcc_data = mfcc_data - means
+
+
 
 print(mfcc_data)
 print(mfcc_data.shape)
@@ -92,8 +145,13 @@ fig, axes = plt.subplots(nrows=1, ncols=1)
 
 
 # +- 6 for normalized, +- 60 for non-normalized
-vmin = -6
-vmax =  6	
+
+if (args.output_norm or args.input_norm or args.normalized) and not args.only_means:
+	vmin = -6
+	vmax =  6
+else:
+	vmin = -60
+	vmax =  60
 
 a = axes.pcolormesh(mfcc_data.transpose(), vmin=vmin, vmax=vmax)
 axes.set_aspect('equal')
