@@ -8,17 +8,26 @@ import numpy as np
 # in the entire development test set
 
 mypath = '/mnt/data/Fer/diplomski/training_currennt/speech_autoencoding_chime/test/test2/output-test-nenorm/'
+extension = 'mfcc'
 
 from os import listdir
 from os.path import isfile, join
 import os
 
-dirs = os
+dirs = [ x for x in os.listdir(mypath) if os.path.isdir(mypath + x) ]
+print(dirs)
 
-def get_filenames(root):
-	for path, subdirs, files in os.walk(root):
-		for name in files:
-			yield (name)
+files = []
+
+for d in dirs:
+	files.extend( [d + "/" + f for f in os.listdir(mypath + d) if f.split('.')[1] == extension ] ) 
+
+print(files)
+
+#def get_filenames(root):
+#	for path, subdirs, files in os.walk(root):
+#		for name in files:
+#			yield (name)
 			
 #onlyfiles = [f for f in get_filenames(mypath)] 
 
