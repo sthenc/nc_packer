@@ -7,13 +7,23 @@ import numpy as np
 # computes means and stddev for every mfcc bin for all the test files
 # in the entire development test set
 
+
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("foldername", help="foldername for tree with .mfcc features")
+#parser.add_argument("logname", help="file to save means and stddevs to")
+args = parser.parse_args()
+
 #mypath = '/mnt/data/Fer/diplomski/nc_packer/tmp_test/'
-mypath = '/mnt/data/Fer/diplomski/CHiME2/eval_tools_grid/features/mfcc/test_raw/'
+#mypath = '/mnt/data/Fer/diplomski/CHiME2/eval_tools_grid/features/mfcc/test_raw/'
+mypath = args.foldername #'/mnt/data/Fer/diplomski/training_currennt/speech_autoencoding_chime/test/test2/output-test-norm/'
 extension = 'mfcc'
 
 from os import listdir
 from os.path import isfile, join
 import os
+
+print (mypath)
 
 dirs = [ x for x in os.listdir(mypath) if os.path.isdir(mypath + x) ]
 print(dirs)
