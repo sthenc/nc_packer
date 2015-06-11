@@ -11,7 +11,7 @@ import numpy as np
 import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("foldername", help="foldername for tree with .mfcc features")
-#parser.add_argument("logname", help="file to save means and stddevs to")
+parser.add_argument("savename", help="file to save means and stddevs to")
 args = parser.parse_args()
 
 #mypath = '/mnt/data/Fer/diplomski/nc_packer/tmp_test/'
@@ -87,3 +87,12 @@ for i in range(0, NC):
 		stddevs[i] = 1.0
 
 pprint(stddevs)
+
+import json
+
+savefile = open(args.savename, "w")
+
+json.dump((means, stddevs), savefile)
+
+
+savefile.close()
