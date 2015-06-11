@@ -92,7 +92,9 @@ import json
 
 savefile = open(args.savename, "w")
 
-json.dump((means, stddevs), savefile)
+meanslist = list(means)
+stddevslist = list(stddevs)
+json.dump((meanslist, stddevslist), savefile)
 
 
 savefile.close()
