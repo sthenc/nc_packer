@@ -7,15 +7,24 @@ import numpy as np
 # computes means and stddev for every mfcc bin for all the test files
 # in the entire development test set
 
-mypath = '/mnt/data/Fer/diplomski/nc_packer/test_data/PCCdata16kHz/devel/isolated/clean/'
+mypath = '/mnt/data/Fer/diplomski/training_currennt/speech_autoencoding_chime/test/test2/output-test-nenorm/'
 
 from os import listdir
 from os.path import isfile, join
+import os
 
-onlyfiles = [ f for f in listdir(mypath) if isfile(join(mypath,f)) ]
+dirs = os
 
-print('#files ' + str(len(onlyfiles)))
+def get_filenames(root):
+	for path, subdirs, files in os.walk(root):
+		for name in files:
+			yield (name)
+			
+#onlyfiles = [f for f in get_filenames(mypath)] 
 
+#print('#files ' + str(len(onlyfiles)))
+
+#print(onlyfiles)
 #NC = 39 # number of ceptral coefficients
 
 #means = np.zeros(NC)
