@@ -7,7 +7,8 @@ import numpy as np
 # computes means and stddev for every mfcc bin for all the test files
 # in the entire development test set
 
-mypath = '/mnt/data/Fer/diplomski/training_currennt/speech_autoencoding_chime/test/test2/output-test-nenorm/'
+#mypath = '/mnt/data/Fer/diplomski/nc_packer/tmp_test/'
+mypath = '/mnt/data/Fer/diplomski/CHiME2/eval_tools_grid/features/mfcc/test_raw/'
 extension = 'mfcc'
 
 from os import listdir
@@ -17,71 +18,62 @@ import os
 dirs = [ x for x in os.listdir(mypath) if os.path.isdir(mypath + x) ]
 print(dirs)
 
-files = []
+onlyfiles = []
 
 for d in dirs:
-	files.extend( [d + "/" + f for f in os.listdir(mypath + d) if f.split('.')[1] == extension ] ) 
+	onlyfiles.extend( [d + "/" + f for f in os.listdir(mypath + d) if f.split('.')[1] == extension ] ) 
 
-print(files)
-
-#def get_filenames(root):
-#	for path, subdirs, files in os.walk(root):
-#		for name in files:
-#			yield (name)
-			
-#onlyfiles = [f for f in get_filenames(mypath)] 
-
-#print('#files ' + str(len(onlyfiles)))
-
-#print(onlyfiles)
-#NC = 39 # number of ceptral coefficients
-
-#means = np.zeros(NC)
-#stddevs = np.zeros(NC)
-
-#N = 0
-
-#import htkmfc as hm
+print(onlyfiles)
 
 
-#for f in onlyfiles:
-	##f = onlyfiles[]
+NC = 39 # number of ceptral coefficients
+
+means = np.zeros(NC)
+stddevs = np.zeros(NC)
+
+N = 0
+
+import htkmfc as hm
+
+
+for f in onlyfiles:
+	#f = onlyfiles[]
 	
-	#io_klasa = hm.HTKFeat_read(mypath + f)
+	io_klasa = hm.HTKFeat_read(mypath + f)
 
-	#mfccs = io_klasa.getall()
+	mfccs = io_klasa.getall()
 
 
-	##print(f)
-	#sh = mfccs.shape
-	##print(sh)
+	#print(f)
+	sh = mfccs.shape
+	#print(sh)
 
-	#lilN = sh[0]
+	lilN = sh[0]
 
-	#for j in range (0, lilN):
-		#N += 1
-		#for i in range(0, NC):
-			#x = mfccs[j][i]
-			#delta = x - means[i]
-			#means[i] += delta / N
-			#stddevs[i] += delta * (x - means[i])
+	for j in range (0, lilN):
+		N += 1
+		for i in range(0, NC):
+			x = mfccs[j][i]
+			delta = x - means[i]
+			means[i] += delta / N
+			stddevs[i] += delta * (x - means[i])
 	
-#from pprint import pprint	
+from pprint import pprint	
 
-#print(N)
-#print(means)
+print(N)
+print(means)
 
-#pprint(means)
+pprint(means)
 	
-#stddevs /= N - 1
+stddevs /= N - 1
 
-#from math import sqrt
+from math import sqrt
 
-#delta = 0.0000001
+delta = 0.0000001
 
-#for i in range(0, NC):
-	#stddevs[i] = sqrt(stddevs[i])
-	#if abs(stddevs[i] - 0.0) < delta:
-		#stddevs[i] = 1.0
+for i in range(0, NC):
+	stddevs[i] = sqrt(stddevs[i])
+	if abs(stddevs[i] - 0.0) < delta:
+		stddevs[i] = 1.0
 
-#pprint(stddevs)
+pprint(stddevs)
