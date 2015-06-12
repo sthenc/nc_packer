@@ -4,8 +4,6 @@ import numpy as np
 import matplotlib as ml
 import matplotlib.pyplot as plt
 
-import htkmfc as hm
-
 import argparse
 parser = argparse.ArgumentParser()
 parser = argparse.ArgumentParser()
@@ -102,6 +100,24 @@ for d in dirs:
 	if not os.path.exists(output_folder + d):
 		os.makedirs(output_folder + d)
 		
-		
 
+# apply computed means to all input files and store the result to output folder
+import htkmfc as hm
+#from .. import plot_mfcc_array # not a package
+#from plot_mfcc_array import plot_mfcc_array
 
+for f in filenames:
+	
+	io_klasa = hm.HTKFeat_read(input_folder + f)
+
+	mfcc_data = io_klasa.getall()
+	
+	#plot_mfcc_array(mfcc_data)
+	
+	mfcc_data = (mfcc_data - new_means) / new_stds
+	
+	#plot_mfcc_array(mfcc_data)
+	
+	io_klasa = hm.HTKFeat_write(output_folder + f, veclen = 39, sampPeriod = 100000, paramKind = 2886) 
+
+	io_klasa.writeall(mfcc_data)
