@@ -37,7 +37,13 @@ htk_stds = np.array([ 5.01052426,  6.0709671 ,  6.3988848 ,  6.4326679 ,  7.0528
         0.61024786,  0.62611209,  0.66455343,  0.68386709,  0.67936381,
         0.66838117,  0.66832734,  0.62084678,  0.09018718])
 
-
+htk_means[12] = 0.0
+htk_means[25] = 0.0
+htk_means[38] = 0.0
+htk_stds [12] = 1.0
+htk_stds [25] = 1.0
+htk_stds [38] = 1.0
+             
 import json
 
 infajl = open(args.loadname, "r")
@@ -46,6 +52,14 @@ infajl.close()
 
 ops_means = np.array(tmp[0])
 ops_stds = np.array(tmp[1])
+
+ops_means[12] = 0.0
+ops_means[25] = 0.0
+ops_means[38] = 0.0
+ops_stds [12] = 1.0
+ops_stds [25] = 1.0
+ops_stds [38] = 1.0
+             
 
 print (ops_means)
 print (ops_stds)
@@ -104,10 +118,10 @@ for d in dirs:
 # apply computed means to all input files and store the result to output folder
 import htkmfc as hm
 #from .. import plot_mfcc_array # not a package
-from plot_mfcc_array import plot_mfcc_array
+#from plot_mfcc_array import plot_mfcc_array
 
 
-filenames = filenames [0:1] # use only one
+#filenames = filenames [0:1] # use only one
 
 for f in filenames:
 	
@@ -115,13 +129,11 @@ for f in filenames:
 
 	mfcc_data = io_klasa.getall()
 	
-	plot_mfcc_array(mfcc_data)
+	#plot_mfcc_array(mfcc_data)
 	
 	mfcc_data2 = (mfcc_data - new_means) / new_stds
 	
-	plot_mfcc_array(mfcc_data2)
-	
-	plot_mfcc_array(mfcc_data - mfcc_data2)
+	#plot_mfcc_array(mfcc_data2)
 	
 	io_klasa = hm.HTKFeat_write(output_folder + f, veclen = 39, sampPeriod = 100000, paramKind = 2886) 
 
