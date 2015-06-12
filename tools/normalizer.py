@@ -90,6 +90,12 @@ for d in dirs:
 
 print(filenames)
 
+import shutil
 
+if os.path.exists(output_folder):
+	shutil.rmtree(output_folder)
 
+for d in dirs:
+	if not os.path.exists(output_folder + d):
+		os.makedirs(output_folder + d)
 
