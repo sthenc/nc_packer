@@ -77,6 +77,7 @@ output_folder = args.normfolder
 import os
 
 
+# detect all input files
 extension = 'mfcc'
 print (input_folder)
 
@@ -90,6 +91,8 @@ for d in dirs:
 
 print(filenames)
 
+
+# prepare output folder tree
 import shutil
 
 if os.path.exists(output_folder):
@@ -98,4 +101,7 @@ if os.path.exists(output_folder):
 for d in dirs:
 	if not os.path.exists(output_folder + d):
 		os.makedirs(output_folder + d)
+		
+		
+
 
