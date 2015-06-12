@@ -104,7 +104,10 @@ for d in dirs:
 # apply computed means to all input files and store the result to output folder
 import htkmfc as hm
 #from .. import plot_mfcc_array # not a package
-#from plot_mfcc_array import plot_mfcc_array
+from plot_mfcc_array import plot_mfcc_array
+
+
+filenames = filenames [0:1] # use only one
 
 for f in filenames:
 	
@@ -112,12 +115,14 @@ for f in filenames:
 
 	mfcc_data = io_klasa.getall()
 	
-	#plot_mfcc_array(mfcc_data)
+	plot_mfcc_array(mfcc_data)
 	
-	mfcc_data = (mfcc_data - new_means) / new_stds
+	mfcc_data2 = (mfcc_data - new_means) / new_stds
 	
-	#plot_mfcc_array(mfcc_data)
+	plot_mfcc_array(mfcc_data2)
+	
+	plot_mfcc_array(mfcc_data - mfcc_data2)
 	
 	io_klasa = hm.HTKFeat_write(output_folder + f, veclen = 39, sampPeriod = 100000, paramKind = 2886) 
 
-	io_klasa.writeall(mfcc_data)
+	io_klasa.writeall(mfcc_data2)
