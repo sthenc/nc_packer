@@ -40,6 +40,30 @@ logging.info("Arguments: " +  str(args))
 
 # feature generate phase
 
+testfeat = "output_test/"
+valfeat = "output_val/"
+trainfeat = "output_train/"
+
+testnc = "../../test_reverb_norm.nc"
+valnc = "../../val_reverb_norm.nc"
+trainnc = "../../val_reverb_norm.nc"
+
+for f in [testfeat, valfeat, trainfeat]:
+	if not os.path.exists(rootdir + f):
+		os.makedirs(rootdir + f)
+		logging.info("Created " + rootdir + f)
+
+for f in [testnc, valnc, trainnc]:
+	if not os.path.isfile(rootdir + f):
+		logging.error("File doesn't exist: " + rootdir + f)
+		print("File doesn't exist: " + rootdir + f)
+		exit()
+
+
+if args.inset == "test"  or args.inset == "all" :
+	print("test")
+	
+	
 
 # feature score phase
 
