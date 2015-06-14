@@ -5,13 +5,15 @@ import numpy as np
 import argparse
 parser = argparse.ArgumentParser()
 
-parser.add_argument('inset', choices=['test', 'val', 'train']) # all ? 
-parser.add_argument('recog', choices=['clean', 'reverb', 'noisy', 'retrain']) # all ? 
+parser.add_argument('inset', choices=['test', 'val', 'train', 'all']) 
+parser.add_argument('recog', choices=['clean', 'reverb', 'noisy', 'retrain', 'all']) 
 
 parser.add_argument("testid", help="String to generate necessary folders etc.")   # can potentially delete data
 parser.add_argument("netname", help="Input autosave file")
 
-# -del argument - delete temporary files (computed features) ?
+parser.add_argument("-del", "--delete",
+	help="Delete generated features to save space",
+	action="store_true")
 
 args = parser.parse_args()
 
@@ -34,3 +36,12 @@ logging.basicConfig(filename='chime_scorer.log', format='%(asctime)s:%(levelname
 logging.info("Program started")
 
 logging.info("Arguments: " +  str(args))
+
+
+# feature generate phase
+
+
+# feature score phase
+
+
+# finish: save results to .ods file or someting
