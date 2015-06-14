@@ -141,7 +141,7 @@ command_template = ["currennt", "--network", "./" + netname, "--train","false",
 def generate_features(feat, nc):
 	
 	try:
-		command = command_template;
+		command = command_template[:];
 		command.extend(["--ff_input_file", nc, "--ff_output_file", "./" + feat])
 		
 		logging.info("Command: " + str(command))
@@ -161,7 +161,7 @@ rename_template = ["rename2mfcc.sh"]
 def do_rename(feat):
 		
 	try:
-		command = rename_template;
+		command = rename_template[:];
 		command.extend([feat])
 		
 		logging.info("Command: " + str(command))
@@ -181,7 +181,7 @@ compute_template = ["compute_output_mean_stddev.py"]
 def compute_means(feat, saved_means):
 		
 	try:
-		command = compute_template;
+		command = compute_template[:];
 		command.extend([feat, saved_means])
 		
 		logging.info("Command: " + str(command))
@@ -202,7 +202,7 @@ normalize_template = ["normalizer.py"]
 def do_normalize(feat, saved_means, outfeat):
 		
 	try:
-		command = normalize_template;
+		command = normalize_template[:];
 		command.extend([feat, saved_means, outfeat])
 		
 		logging.info("Command: " + str(command))
@@ -215,8 +215,24 @@ def do_normalize(feat, saved_means, outfeat):
 		exit()
 		
 	else:                                                                                                   
-		logging.info("Normalized features " + feat + " : \n{}\n".format(tmp_output))   
+		logging.info("Normalized features " + feat + " : \n{}\n".format(tmp_output))  
+		
+def do_feature_work(feat, outfeat, nc, saved_means):
+		
+	clean_folder(rootdir + feat)
+	
+	generate_features(feat, nc)
+	
+	do_rename(feat)
 
+	compute_means(feat, saved_means)
+	
+	#sb.call(["htk_mfcc_visualize.py", feat + "0dB/10_bgakzn.mfcc"])
+	
+	do_normalize(feat, saved_means, outfeat)
+	
+	#sb.call(["htk_mfcc_visualize.py", outfeat + "0dB/10_bgakzn.mfcc"])
+	
 if not args.just_test:
 	
 	logging.info("Started generating features")
@@ -228,19 +244,25 @@ if not args.just_test:
 		nc = testnc
 		saved_means = "./test_means.json"
 		
-		clean_folder(rootdir + feat)
-		
-		generate_features(feat, nc)
-		
-		do_rename(feat)
+		do_feature_work(feat, outfeat, nc, saved_means)	
 	
-		compute_means(feat, saved_means)
+	if args.inset == "train" or args.inset == "all" :
 		
-		#sb.call(["htk_mfcc_visualize.py", feat + "0dB/10_bgakzn.mfcc"])
+		feat = trainfeat
+		outfeat = trainfeatnorm
+		nc = trainnc
+		saved_means = "./train_means.json"
 		
-		do_normalize(feat, saved_means, outfeat)
+		do_feature_work(feat, outfeat, nc, saved_means)	
 		
-		#sb.call(["htk_mfcc_visualize.py", outfeat + "0dB/10_bgakzn.mfcc"])
+	if args.inset == "val" or args.inset == "all" :
+		
+		feat = valfeat
+		outfeat = valfeatnorm
+		nc = valnc
+		saved_means = "./val_means.json"
+		
+		do_feature_work(feat, outfeat, nc, saved_means)	
 		
 	logging.info("Finished generating features")
 		
