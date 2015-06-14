@@ -1,10 +1,8 @@
 #!/bin/sh
 
-#echo "bre $1"
-
 cd "$1"
 
-for dir in 0dB  3dB  6dB  9dB  m3dB  m6dB ; do
+for dir in `find . -maxdepth 1 -mindepth 1 -type d -printf '%f\n'` ; do
 	#echo $dir
 	for file in $dir/*.htk; do
 		#echo $file
