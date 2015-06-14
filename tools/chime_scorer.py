@@ -278,5 +278,49 @@ if not args.just_test:
 
 # feature score phase
 
+evalroot = "/mnt/data/Fer/diplomski/CHiME2/eval_tools_grid/"
+
+def do_retrain(feat, clasif):
+
+# need to chdir to /mnt/data/Fer/diplomski/CHiME2/eval_tools_grid		
+	os.chdir(evalroot)
+
+#	./do_train_all.sh processed chime2-grid/train/processed_isolated	
+	
+	command = ["./do_train_all.sh", clasif, rootdir + feat]
+	
+	try:
+		tmp_output = sb.check_output(command, stderr=sb.STDOUT, universal_newlines=True)
+	
+	except sb.CalledProcessError as exc:                                                                                                   
+		logging.error("Error retraining a model " + clasif + " . returncode: " + str(exc.returncode) + " output: \n" + str(exc.output))
+		print("Error retraining a model " + clasif + " ")
+		exit()
+		
+	else:                                                                                                   
+		logging.info("Retrained model " + clasif + " : \n{}\n".format(tmp_output))  
+
+	os.chdir(rootdir)
+
+
+
+
+if not args.just_generate:
+	
+	logging.info("Started scoring features")
+	
+	# name of retrained hmm classifier
+	retrid = "processed" + "_" + args.testid
+	
+	classifiers = []
+	 
+	if args.recog == "retrain" or args.recog == "all":
+		
+		do_retrain(trainfeatnorm, retrid)
+		
+		classifiers.append(retrid)
+		
+
+	logging.info("Finished scoring features")
 
 # finish: save results to .ods file or someting
