@@ -78,9 +78,14 @@ else:
 
 # feature generate phase
 
-testfeat = "output_test/"
-valfeat = "output_val/"
+testfeat  = "output_test/"
+valfeat   = "output_val/"
 trainfeat = "output_train/"
+
+testfeatnorm  = "output_norm_test/"
+valfeatnorm   = "output_norm_val/"
+trainfeatnorm = "output_norm_train/"
+
 
 #testnc = "../../test_reverb_norm.nc"
 #valnc = "../../val_reverb_norm.nc"
@@ -194,11 +199,11 @@ def compute_means(feat, saved_means):
 
 normalize_template = ["normalizer.py"]
 
-def do_normalize(feat, saved_means):
+def do_normalize(feat, saved_means, outfeat):
 		
 	try:
 		command = normalize_template;
-		command.extend([feat, saved_means, feat])
+		command.extend([feat, saved_means, outfeat])
 		
 		logging.info("Command: " + str(command))
 		
@@ -219,6 +224,7 @@ if not args.just_test:
 	if args.inset == "test" or args.inset == "all" :
 		
 		feat = testfeat
+		outfeat = testfeatnorm
 		nc = testnc
 		saved_means = "./test_means.json"
 		
@@ -228,9 +234,13 @@ if not args.just_test:
 		
 		do_rename(feat)
 	
-		#compute_means(feat, saved_means)
+		compute_means(feat, saved_means)
 		
-		#do_normalize(feat, saved_means)
+		#sb.call(["htk_mfcc_visualize.py", feat + "0dB/10_bgakzn.mfcc"])
+		
+		do_normalize(feat, saved_means, outfeat)
+		
+		#sb.call(["htk_mfcc_visualize.py", outfeat + "0dB/10_bgakzn.mfcc"])
 		
 	logging.info("Finished generating features")
 		
