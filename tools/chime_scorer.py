@@ -319,7 +319,19 @@ if not args.just_generate:
 		do_retrain(trainfeatnorm, retrid)
 		
 		classifiers.append(retrid)
+	
+	# 'clean', 'reverb', 'noisy', 'retrain',
+	if args.recog == "clean" or args.recog == "all":	
+		classifiers.append("clean")
 		
+	if args.recog == "reverb" or args.recog == "all":	
+		classifiers.append("reverberated")
+		
+	if args.recog == "noisy" or args.recog == "all":	
+		classifiers.append("noisy")
+
+	logging.info("Selected recognizer models: " + str(classifiers))
+
 
 	logging.info("Finished scoring features")
 
