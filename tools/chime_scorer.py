@@ -1,8 +1,6 @@
 #!/usr/bin/python
 
 import numpy as np
-import shutil as sh
-import os
 
 import argparse
 parser = argparse.ArgumentParser()
@@ -17,4 +15,22 @@ parser.add_argument("netname", help="Input autosave file")
 
 args = parser.parse_args()
 
-print (args)
+#print (args)
+
+rootdir = "/mnt/data/Fer/diplomski/training_currennt/speech_autoencoding_chime/test/" + args.testid + "/"
+
+#import shutil as sh
+import os
+
+if not os.path.exists(rootdir):
+	os.makedirs(rootdir)
+
+os.chdir(rootdir)
+
+import logging
+
+logging.basicConfig(filename='chime_scorer.log', format='%(asctime)s:%(levelname)s:%(message)s', level=logging.DEBUG)
+
+logging.info("Program started")
+
+logging.info("Arguments: " +  str(args))
