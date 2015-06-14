@@ -7,6 +7,17 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument('inset', choices=['test', 'val', 'train', 'all']) 
 parser.add_argument('recog', choices=['clean', 'reverb', 'noisy', 'retrain', 'all']) 
+phase_group = ArgumentParser.add_mutually_exclusive_group(required = False)
+
+phase_group.add_argument("-gen", "--just-generate",
+	help="Only generate features",
+	action="store_true")
+	
+phase_group.add_argument("-tst", "--just-test",
+	help="Only generate features",
+	action="store_true")
+	
+parser.add_argument("-od", 
 
 parser.add_argument("testid", help="String to generate necessary folders etc.")   # can potentially delete data
 parser.add_argument("netname", help="Input autosave file")
@@ -21,7 +32,7 @@ args = parser.parse_args()
 
 rootdir = "/mnt/data/Fer/diplomski/training_currennt/speech_autoencoding_chime/test/" + args.testid + "/"
 
-#import shutil as sh
+import shutil as sh
 import os
 
 if not os.path.exists(rootdir):
@@ -62,6 +73,9 @@ for f in [testnc, valnc, trainnc]:
 
 if args.inset == "test"  or args.inset == "all" :
 	print("test")
+	
+	if os.path.exists(rootdir + testfeat):
+		sh.rmtree(rootdir + testfeat)
 	
 	
 
