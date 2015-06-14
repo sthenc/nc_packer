@@ -104,6 +104,15 @@ for f in [testnc, valnc, trainnc]:
 		exit()
 
 
+if args.delete:
+	for f in [testfeat, valfeat, trainfeat, testfeatnorm, valfeatnorm, trainfeatnorm]:
+		if os.path.exists(f):
+			sh.rmtree(f)
+	
+	logging.info("Deleted temporary feature folders")
+	exit(0)
+
+
 def clean_folder(foldername):
 	
 	if os.path.exists(foldername):
