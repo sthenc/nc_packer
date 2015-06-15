@@ -87,10 +87,13 @@ valfeatnorm   = "output_norm_val/"
 trainfeatnorm = "output_norm_train/"
 
 
+#retrainfeatdir =  
+
 #testnc = "../../test_reverb_norm.nc"
 #valnc = "../../val_reverb_norm.nc"
 #trainnc = "../../val_reverb_norm.nc"
-testnc = valnc = trainnc = "../../dev2.nc"
+testnc = valnc = "../../dev2.nc"
+trainnc = "../../train2.nc"
 
 for f in [testfeat, valfeat, trainfeat]:
 	if not os.path.exists(rootdir + f):
@@ -281,13 +284,18 @@ if not args.just_test:
 evalroot = "/mnt/data/Fer/diplomski/CHiME2/eval_tools_grid/"
 
 def do_retrain(feat, clasif):
+	logging.info("Started retraining " + feat + " " + clasif)
+	
 
 # need to chdir to /mnt/data/Fer/diplomski/CHiME2/eval_tools_grid		
 	os.chdir(evalroot)
 
-#	./do_train_all.sh processed chime2-grid/train/processed_isolated	
+#	./do_train_all.sh processed chime2-grid/train/processed_isolated
 	
-	command = ["./do_train_all.sh", clasif, rootdir + feat]
+	# TODO prekopirat feature u ocekivani direktorij ? 
+	
+	#command = ["./do_train_all.sh", clasif, rootdir + feat]
+	command = ["./scripts/do_train.sh", clasif, "mfcc", rootdir + feat]
 	
 	try:
 		tmp_output = sb.check_output(command, stderr=sb.STDOUT, universal_newlines=True)
@@ -303,7 +311,23 @@ def do_retrain(feat, clasif):
 	os.chdir(rootdir)
 
 
+	logging.info("Finished retraining " + feat + " " + clasif)
 
+def do_score(dataset, classifier):
+	
+	dsname = dataset[0]
+	
+	dspath = dataset[1]
+	
+	scoreid = args.testid + "-" + dsname
+	
+	print(dataset, " ", classifier, " ", scoreid)
+	
+	# ./do_recog_all.sh classifier scoreid dspath
+	
+	# ./do_score_all.sh scoreid
+	
+	return 0
 
 if not args.just_generate:
 	
@@ -331,7 +355,28 @@ if not args.just_generate:
 		classifiers.append("noisy")
 
 	logging.info("Selected recognizer models: " + str(classifiers))
+	
+	datasets = []
+	
+	if args.inset == "test" or args.inset == "all":
+		datasets.append(("test", testfeatnorm))
 
+	if args.inset == "train" or args.inset == "all":
+		datasets.append(("train", trainfeatnorm))
+		
+	if args.inset == "val" or args.inset == "all":
+		datasets.append(("val", valfeatnorm))
+		
+	logging.info("Selected datasets: " + str(datasets))
+
+	results = {}
+	
+	for ds in datasets:
+		for cl in classifiers:
+			results[(ds,cl)] = do_score(ds, cl)
+			
+
+	logging.info("Results obtained " + str(results))
 
 	logging.info("Finished scoring features")
 
