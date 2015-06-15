@@ -88,7 +88,7 @@ trainfeatnorm = "output_norm_train/"
 
 testnc = "../../test_reverb_norm.nc"
 valnc = "../../val_reverb_norm.nc"
-trainnc = "../../val_reverb_norm.nc"
+trainnc = "../../train_reverb_norm.nc"
 
 # for dubugging
 #testnc = "../../dev2.nc"
