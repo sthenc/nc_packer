@@ -86,14 +86,13 @@ testfeatnorm  = "output_norm_test/"
 valfeatnorm   = "output_norm_val/"
 trainfeatnorm = "output_norm_train/"
 
+testnc = "../../test_reverb_norm.nc"
+valnc = "../../val_reverb_norm.nc"
+trainnc = "../../val_reverb_norm.nc"
 
-#retrainfeatdir =  
-
-#testnc = "../../test_reverb_norm.nc"
-#valnc = "../../val_reverb_norm.nc"
-#trainnc = "../../val_reverb_norm.nc"
-testnc = valnc = "../../dev2.nc"
-trainnc = "../../train2.nc"
+# for dubugging
+#testnc = "../../dev2.nc"
+#valnc = trainnc = "../../train2.nc"
 
 for f in [testfeat, valfeat, trainfeat]:
 	if not os.path.exists(rootdir + f):
@@ -319,13 +318,32 @@ def do_score(dataset, classifier):
 	
 	dspath = dataset[1]
 	
-	scoreid = args.testid + "-" + dsname
+	scoreid = args.testid + "_" + dsname
 	
-	print(dataset, " ", classifier, " ", scoreid)
+	logging.debug("Do score for: " + str(dataset) + " " + classifier + " " + scoreid)
 	
 	# ./do_recog_all.sh classifier scoreid dspath
 	
+	os.chdir(evalroot)
+	
+	command = ["./do_recog_all.sh", classifier, scoreid, rootdir + dspath] 
+	
+	try:
+		logging.debug(str(command))
+		tmp_output = sb.check_output(command, stderr=sb.STDOUT, universal_newlines=True)
+	
+	except sb.CalledProcessError as exc:                                                                                                   
+		logging.error("Error recognizing " + str(dataset) + " " + classifier + " " + scoreid + " . returncode: " + str(exc.returncode) + " output: \n" + str(exc.output))
+		print("Error recognizing " + str(dataset) + " " + classifier + " " + scoreid)
+		exit()
+		
+	else:                                                                                                   
+		logging.info("Succesfully recognized " + str(dataset) + " " + classifier + " " + scoreid +  " : \n{}\n".format(tmp_output))  
+	
 	# ./do_score_all.sh scoreid
+	
+	
+	os.chdir(rootdir)
 	
 	return 0
 
