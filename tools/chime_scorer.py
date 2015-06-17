@@ -257,6 +257,7 @@ if not args.just_test:
 		
 		do_feature_work(feat, outfeat, nc, saved_means)	
 	
+
 	if args.inset == "train" or args.inset == "all" :
 		
 		feat = trainfeat
@@ -394,7 +395,8 @@ if not args.just_generate:
 	if args.inset == "test" or args.inset == "all":
 		datasets.append(("test", testfeatnorm))
 
-	if args.inset == "train" or args.inset == "all":
+	# recognizing isn't implemented for training set, so it isn't included by default
+	if args.inset == "train": #or args.inset == "all":
 		datasets.append(("train", trainfeatnorm))
 		
 	if args.inset == "val" or args.inset == "all":
