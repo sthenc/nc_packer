@@ -51,7 +51,7 @@ def save_score(strid, results):
 
 		row = results[r]
 		
-		sheet[index, 1].set_value(r[0]) # dataset name
+		sheet[index, 1].set_value(r[0][0]) # dataset name
 		sheet[index, 2].set_value(r[1]) # classifier name
 
 		for i in range(0, len(row)):
