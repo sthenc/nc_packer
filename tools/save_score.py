@@ -11,7 +11,7 @@ results_root = "/mnt/data/Fer/diplomski/training_currennt/results/"
 
 def save_score(strid, results):
 	
-	print("save_score called")
+	#print("save_score called")
 	
 	# initialize empty table
 	
@@ -62,7 +62,31 @@ def save_score(strid, results):
 		index += 1
 
 	spreadsheet.save()
+
+def parse_result(result):
 	
+	ret = [] 
+	
+	tmp = result.split("\n")
+	
+	#print(tmp[2])
+	
+	tmp = tmp[2].split()
+	
+	#print(tmp)
+	
+	for t in tmp:
+		ret.append(float(t.strip(" ;")))
+		
+	return ret
+
 if __name__ == "__main__":
-	
-	save_score("proba", { ("nijedan",  "random"): [1, 2, 3, 4, 5, 6.7], ("nijedan2",  "random2"): [10, 2, 3, 4, 5, 6.7] } )
+
+	tmp_output = """acc = [
+% m6dB   m3dB   0dB    3dB    6dB    9dB    
+  71.33  74.92  79.75  84.50  88.58  88.08;
+];
+"""
+
+	print(parse_result(tmp_output))
+	#save_score("proba", { ("nijedan",  "random"): [1, 2, 3, 4, 5, 6.7], ("nijedan2",  "random2"): [10, 2, 3, 4, 5, 6.7] } )

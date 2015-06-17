@@ -312,6 +312,8 @@ def do_retrain(feat, clasif):
 
 	logging.info("Finished retraining " + feat + " " + clasif)
 
+from save_score import save_score, parse_result
+
 def do_score(dataset, classifier):
 	
 	dsname = dataset[0]
@@ -340,12 +342,25 @@ def do_score(dataset, classifier):
 	else:                                                                                                   
 		logging.info("Succesfully recognized " + str(dataset) + " " + classifier + " " + scoreid +  " : \n{}\n".format(tmp_output))  
 	
+	
+	command2 = ["./do_score_all.sh", "results/" + scoreid + "_" + classifier]
 	# ./do_score_all.sh scoreid
 	
+	try:
+		logging.debug(str(command2))
+		tmp_output = sb.check_output(command2, stderr=sb.STDOUT, universal_newlines=True)
+	
+	except sb.CalledProcessError as exc:                                                                                                   
+		logging.error("Error scoring " + str(dataset) + " " + classifier + " " + scoreid + " . returncode: " + str(exc.returncode) + " output: \n" + str(exc.output))
+		print("Error scoring " + str(dataset) + " " + classifier + " " + scoreid)
+		exit()
+		
+	else:                                                                                                   
+		logging.info("Succesfully scored " + str(dataset) + " " + classifier + " " + scoreid +  " : \n{}\n".format(tmp_output))  
 	
 	os.chdir(rootdir)
 	
-	return 0
+	return parse_result(tmp_output)
 
 if not args.just_generate:
 	
@@ -392,7 +407,8 @@ if not args.just_generate:
 	for ds in datasets:
 		for cl in classifiers:
 			results[(ds,cl)] = do_score(ds, cl)
-			
+	
+	save_score(args.testid, results)
 
 	logging.info("Results obtained " + str(results))
 
