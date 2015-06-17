@@ -372,7 +372,9 @@ if not args.just_generate:
 	
 	classifiers = []
 	 
-	if args.recog == "retrain" or args.recog == "all":
+	 
+	# not by default included in "all"
+	if args.recog == "retrain": #or args.recog == "all":
 		
 		do_retrain(trainfeatnorm, retrid)
 		
