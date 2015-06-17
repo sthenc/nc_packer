@@ -16,9 +16,9 @@ noisy_prefix = "/s"
 input_prefix = ".wav"
 output_prefix = ".mfcc.htk"
 
-tmp_dirpath = "./tmp/" 
+tmp_dirpath = "./tmp_val/" 
 
-mapfile = "dev_map.txt"
+mapfile = "val_map.txt"
 
 os.system('rm -r ' + tmp_dirpath + "*")
 
@@ -37,7 +37,7 @@ def get_filenames_dev(path):
 
 filenames = get_filenames_dev(clean_dirpath) 
 
-print (filenames)
+#print (filenames)
 htklist = []
 
 os.chdir(tmp_dirpath)
@@ -46,7 +46,7 @@ for f in filenames:
 	
 	inputfile = clean_dirpath + clean_prefix  + f + input_prefix
 	
-	outputfile = clean_prefix + f + output_prefix
+	outputfile = clean_prefix + "s" + f + output_prefix
 	
 	komanda = komanda_feature + " -I " + inputfile + " -O " + outputfile
 	
@@ -65,7 +65,7 @@ for n in noisy_dirpaths:
 		
 		os.system(komanda)
 		
-		htklist.append((n + "/" + f, outputfile, clean_prefix + f + output_prefix))
+		htklist.append((n + "/s" + f, outputfile, clean_prefix + "s" + f + output_prefix))
 	
 	
 

@@ -2,9 +2,9 @@
 
 import os
 
-os.chdir('./tmp/')
+os.chdir('./tmp_val/')
 
-komanda = 'htk2nc dev_map.txt ../dev.nc'
+komanda = 'htk2nc val_map.txt ../dev.nc'
 
 
 os.system(komanda)
