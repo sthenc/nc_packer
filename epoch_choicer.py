@@ -11,7 +11,7 @@ ch1 = [i for i in range(216, 184, -4)]
 ch1.extend([ 184, 182])
 
 for c in ch1:
-	print(pref1 + str(c) + suf)
+	print(pref1 + ("%03d" % c) + suf)
 
 
 pref2 = "run7/autosave_run7_epoch"
@@ -23,7 +23,7 @@ ch2.extend([i for i in range(211, 97, -4)])
 ch2.sort(reverse=True)
 
 for c in ch2:
-	print(pref2 + str(c) + suf)
+	print(pref2 + ("%03d" % c) + suf)
 
 
 pref3 = "run6/autosave_run6_epoch"
@@ -37,4 +37,12 @@ ch3.extend([73, 76, 80, 83, 86, 88, 92, 96])
 ch3.sort(reverse=True)
 
 for c in ch3:
-	print(pref3 + str(c) + suf)
+	print(pref3 + ("%03d" % c) + suf)
+
+
+pref4 = "run8/autosave_run8_epoch"
+
+ch4 = [i for i in range(232, 181, -1)]
+
+for c in ch4:
+	print(pref4 + ("%03d" % c) + suf)
