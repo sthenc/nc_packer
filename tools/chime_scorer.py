@@ -61,7 +61,7 @@ netname = os.path.basename(args.netname)
 
 #netname = netname.split('.')[0] + ".json"
 
-print(netname)
+print(netname, args.testid)
 
 try:
 	#print(["cp", args.netname, rootdir])
@@ -412,7 +412,7 @@ if not args.just_generate:
 		for cl in classifiers:
 			results[(ds,cl)] = do_score(ds, cl)
 	
-	save_score(args.testid, results)
+	save_score(args.testid, netname, results)
 
 	logging.info("Results obtained " + str(results))
 

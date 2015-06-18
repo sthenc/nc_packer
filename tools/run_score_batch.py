@@ -5,33 +5,32 @@ run_root="/mnt/data/Fer/diplomski/training_currennt/speech_autoencoding_chime/mr
 
 
 
-index = 1
+index = 23
 
-nets ="""
-run8/autosave_run8_epoch216.autosave
-run8/autosave_run8_epoch212.autosave
-run8/autosave_run8_epoch208.autosave
-run8/autosave_run8_epoch204.autosave
-run8/autosave_run8_epoch200.autosave
-run8/autosave_run8_epoch196.autosave
-run8/autosave_run8_epoch192.autosave
-run8/autosave_run8_epoch188.autosave
-run8/autosave_run8_epoch184.autosave
-run8/autosave_run8_epoch182.autosave
-run7/autosave_run7_epoch211.autosave
-run7/autosave_run7_epoch207.autosave
-run7/autosave_run7_epoch203.autosave
-run7/autosave_run7_epoch199.autosave
-run7/autosave_run7_epoch195.autosave
-run7/autosave_run7_epoch191.autosave
-run7/autosave_run7_epoch187.autosave
-run7/autosave_run7_epoch183.autosave
-run7/autosave_run7_epoch181.autosave
-run7/autosave_run7_epoch180.autosave
-run7/autosave_run7_epoch179.autosave
-run7/autosave_run7_epoch175.autosave
-run7/autosave_run7_epoch171.autosave
-run7/autosave_run7_epoch171.autosave
+#nets ="""
+#run8/autosave_run8_epoch216.autosave
+#run8/autosave_run8_epoch212.autosave
+#run8/autosave_run8_epoch208.autosave
+#run8/autosave_run8_epoch204.autosave
+#run8/autosave_run8_epoch200.autosave
+#run8/autosave_run8_epoch196.autosave
+#run8/autosave_run8_epoch192.autosave
+#run8/autosave_run8_epoch188.autosave
+#run8/autosave_run8_epoch184.autosave
+#run8/autosave_run8_epoch182.autosave
+#run7/autosave_run7_epoch211.autosave
+#run7/autosave_run7_epoch207.autosave
+#run7/autosave_run7_epoch203.autosave
+#run7/autosave_run7_epoch199.autosave
+#run7/autosave_run7_epoch195.autosave
+#run7/autosave_run7_epoch191.autosave
+#run7/autosave_run7_epoch187.autosave
+#run7/autosave_run7_epoch183.autosave
+#run7/autosave_run7_epoch181.autosave
+#run7/autosave_run7_epoch180.autosave
+#run7/autosave_run7_epoch179.autosave
+#run7/autosave_run7_epoch175.autosave
+nets="""run7/autosave_run7_epoch171.autosave
 run7/autosave_run7_epoch167.autosave
 run7/autosave_run7_epoch163.autosave
 run7/autosave_run7_epoch159.autosave

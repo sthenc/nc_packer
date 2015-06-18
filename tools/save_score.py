@@ -9,7 +9,7 @@ import os
 
 results_root = "/mnt/data/Fer/diplomski/training_currennt/results/"
 
-def save_score(strid, results):
+def save_score(strid, netname, results):
 	
 	#print("save_score called")
 	
@@ -51,6 +51,7 @@ def save_score(strid, results):
 
 		row = results[r]
 		
+		sheet[index, 0].set_value(netname)
 		sheet[index, 1].set_value(r[0][0]) # dataset name
 		sheet[index, 2].set_value(r[1]) # classifier name
 
