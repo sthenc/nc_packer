@@ -5,7 +5,7 @@ run_root="/mnt/data/Fer/diplomski/training_currennt/speech_autoencoding_chime/mr
 
 
 
-index = 45
+index = 73
 
 #nets ="""
 #run8/autosave_run8_epoch216.autosave
@@ -52,35 +52,35 @@ index = 45
 #run7/autosave_run7_epoch111.autosave
 #run7/autosave_run7_epoch107.autosave
 #run7/autosave_run7_epoch103.autosave
-nets="""run7/autosave_run7_epoch099.autosave
-run6/autosave_run6_epoch096.autosave
-run6/autosave_run6_epoch092.autosave
-run6/autosave_run6_epoch088.autosave
-run6/autosave_run6_epoch086.autosave
-run6/autosave_run6_epoch083.autosave
-run6/autosave_run6_epoch080.autosave
-run6/autosave_run6_epoch076.autosave
-run6/autosave_run6_epoch073.autosave
-run6/autosave_run6_epoch070.autosave
-run6/autosave_run6_epoch068.autosave
-run6/autosave_run6_epoch064.autosave
-run6/autosave_run6_epoch061.autosave
-run6/autosave_run6_epoch057.autosave
-run6/autosave_run6_epoch054.autosave
-run6/autosave_run6_epoch053.autosave
-run6/autosave_run6_epoch048.autosave
-run6/autosave_run6_epoch047.autosave
-run6/autosave_run6_epoch045.autosave
-run6/autosave_run6_epoch042.autosave
-run6/autosave_run6_epoch039.autosave
-run6/autosave_run6_epoch038.autosave
-run6/autosave_run6_epoch036.autosave
-run6/autosave_run6_epoch033.autosave
-run6/autosave_run6_epoch032.autosave
-run6/autosave_run6_epoch031.autosave
-run6/autosave_run6_epoch029.autosave
-run6/autosave_run6_epoch028.autosave
-run6/autosave_run6_epoch023.autosave
+#nets="""run7/autosave_run7_epoch099.autosave
+#run6/autosave_run6_epoch096.autosave
+#run6/autosave_run6_epoch092.autosave
+#run6/autosave_run6_epoch088.autosave
+#run6/autosave_run6_epoch086.autosave
+#run6/autosave_run6_epoch083.autosave
+#run6/autosave_run6_epoch080.autosave
+#run6/autosave_run6_epoch076.autosave
+#run6/autosave_run6_epoch073.autosave
+#run6/autosave_run6_epoch070.autosave
+#run6/autosave_run6_epoch068.autosave
+#run6/autosave_run6_epoch064.autosave
+#run6/autosave_run6_epoch061.autosave
+#run6/autosave_run6_epoch057.autosave
+#run6/autosave_run6_epoch054.autosave
+#run6/autosave_run6_epoch053.autosave
+#run6/autosave_run6_epoch048.autosave
+#run6/autosave_run6_epoch047.autosave
+#run6/autosave_run6_epoch045.autosave
+#run6/autosave_run6_epoch042.autosave
+#run6/autosave_run6_epoch039.autosave
+#run6/autosave_run6_epoch038.autosave
+#run6/autosave_run6_epoch036.autosave
+#run6/autosave_run6_epoch033.autosave
+#run6/autosave_run6_epoch032.autosave
+#run6/autosave_run6_epoch031.autosave
+#run6/autosave_run6_epoch029.autosave
+#run6/autosave_run6_epoch028.autosave
+nets="""run6/autosave_run6_epoch023.autosave
 run6/autosave_run6_epoch022.autosave
 run6/autosave_run6_epoch021.autosave
 run6/autosave_run6_epoch019.autosave
@@ -162,5 +162,9 @@ command_template = "chime_scorer.py val all "
 
 for i in range(0, len(nets)):
 	command = command_template + "test_%04d " % (i + index) + run_root + nets[i]
+	
+	os.system(command)
+	
+	command = command_template + "--delete test_%04d " % (i + index) + run_root + nets[i]
 	
 	os.system(command)
