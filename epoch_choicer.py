@@ -42,7 +42,16 @@ for c in ch3:
 
 pref4 = "run8/autosave_run8_epoch"
 
-ch4 = [i for i in range(232, 181, -1)]
+ch4 = [i for i in range(234, 181, -1)]
 
 for c in ch4:
 	print(pref4 + ("%03d" % c) + suf)
+
+
+pref5 = "run9/autosave_run9_epoch"
+
+ch5 = [i for i in range(234, 200, -1)]
+
+for c in ch5:
+	print(pref5 + ("%03d" % c) + suf)
+	
