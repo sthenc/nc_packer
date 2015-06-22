@@ -5,7 +5,7 @@ run_root="/mnt/data/Fer/diplomski/training_currennt/speech_autoencoding_chime/mr
 
 
 
-index = 178 # 142 # 73
+index = 204 # 178 # 142 # 73
 
 #nets ="""
 #run8/autosave_run8_epoch216.autosave
@@ -185,32 +185,38 @@ index = 178 # 142 # 73
 #run9/autosave_run9_epoch203.autosave
 #run9/autosave_run9_epoch202.autosave
 #run9/autosave_run9_epoch201.autosave
-nets="""run10/autosave_run10_epoch181.autosave
-run10/autosave_run10_epoch182.autosave
-run10/autosave_run10_epoch183.autosave
-run10/autosave_run10_epoch184.autosave
-run10/autosave_run10_epoch185.autosave
-run10/autosave_run10_epoch186.autosave
-run10/autosave_run10_epoch187.autosave
-run10/autosave_run10_epoch188.autosave
-run10/autosave_run10_epoch189.autosave
-run10/autosave_run10_epoch190.autosave
-run10/autosave_run10_epoch191.autosave
-run10/autosave_run10_epoch192.autosave
-run10/autosave_run10_epoch193.autosave
-run10/autosave_run10_epoch194.autosave
-run10/autosave_run10_epoch195.autosave
-run10/autosave_run10_epoch196.autosave
-run10/autosave_run10_epoch197.autosave
-run10/autosave_run10_epoch198.autosave
-run10/autosave_run10_epoch199.autosave
-run10/autosave_run10_epoch200.autosave
-run10/autosave_run10_epoch201.autosave
-run10/autosave_run10_epoch202.autosave
-run10/autosave_run10_epoch203.autosave
-run10/autosave_run10_epoch204.autosave
-run10/autosave_run10_epoch205.autosave
-run10/autosave_run10_epoch206.autosave
+#nets="""run10/autosave_run10_epoch181.autosave
+#run10/autosave_run10_epoch182.autosave
+#run10/autosave_run10_epoch183.autosave
+#run10/autosave_run10_epoch184.autosave
+#run10/autosave_run10_epoch185.autosave
+#run10/autosave_run10_epoch186.autosave
+#run10/autosave_run10_epoch187.autosave
+#run10/autosave_run10_epoch188.autosave
+#run10/autosave_run10_epoch189.autosave
+#run10/autosave_run10_epoch190.autosave
+#run10/autosave_run10_epoch191.autosave
+#run10/autosave_run10_epoch192.autosave
+#run10/autosave_run10_epoch193.autosave
+#run10/autosave_run10_epoch194.autosave
+#run10/autosave_run10_epoch195.autosave
+#run10/autosave_run10_epoch196.autosave
+#run10/autosave_run10_epoch197.autosave
+#run10/autosave_run10_epoch198.autosave
+#run10/autosave_run10_epoch199.autosave
+#run10/autosave_run10_epoch200.autosave
+#run10/autosave_run10_epoch201.autosave
+#run10/autosave_run10_epoch202.autosave
+#run10/autosave_run10_epoch203.autosave
+#run10/autosave_run10_epoch204.autosave
+#run10/autosave_run10_epoch205.autosave
+#run10/autosave_run10_epoch206.autosave
+nets="""run10/autosave_run10_epoch207.autosave
+run10/autosave_run10_epoch208.autosave
+run10/autosave_run10_epoch209.autosave
+run10/autosave_run10_epoch210.autosave
+run10/autosave_run10_epoch211.autosave
+run10/autosave_run10_epoch212.autosave
 """
 
 nets = [n.strip() for n in nets.split("\n") if len(n.strip()) > 0]
