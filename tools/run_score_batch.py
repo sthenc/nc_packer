@@ -5,7 +5,7 @@ run_root="/mnt/data/Fer/diplomski/training_currennt/speech_autoencoding_chime/mr
 
 
 
-index = 142 # 73
+index = 178 # 142 # 73
 
 #nets ="""
 #run8/autosave_run8_epoch216.autosave
@@ -149,42 +149,68 @@ index = 142 # 73
 #run8/autosave_run8_epoch184.autosave
 #run8/autosave_run8_epoch183.autosave
 #run8/autosave_run8_epoch182.autosave
-nets="""run8/autosave_run8_epoch233.autosave
-run8/autosave_run8_epoch234.autosave
-run9/autosave_run9_epoch234.autosave
-run9/autosave_run9_epoch233.autosave
-run9/autosave_run9_epoch232.autosave
-run9/autosave_run9_epoch231.autosave
-run9/autosave_run9_epoch230.autosave
-run9/autosave_run9_epoch229.autosave
-run9/autosave_run9_epoch228.autosave
-run9/autosave_run9_epoch227.autosave
-run9/autosave_run9_epoch226.autosave
-run9/autosave_run9_epoch225.autosave
-run9/autosave_run9_epoch224.autosave
-run9/autosave_run9_epoch223.autosave
-run9/autosave_run9_epoch222.autosave
-run9/autosave_run9_epoch221.autosave
-run9/autosave_run9_epoch220.autosave
-run9/autosave_run9_epoch219.autosave
-run9/autosave_run9_epoch218.autosave
-run9/autosave_run9_epoch217.autosave
-run9/autosave_run9_epoch216.autosave
-run9/autosave_run9_epoch215.autosave
-run9/autosave_run9_epoch214.autosave
-run9/autosave_run9_epoch213.autosave
-run9/autosave_run9_epoch212.autosave
-run9/autosave_run9_epoch211.autosave
-run9/autosave_run9_epoch210.autosave
-run9/autosave_run9_epoch209.autosave
-run9/autosave_run9_epoch208.autosave
-run9/autosave_run9_epoch207.autosave
-run9/autosave_run9_epoch206.autosave
-run9/autosave_run9_epoch205.autosave
-run9/autosave_run9_epoch204.autosave
-run9/autosave_run9_epoch203.autosave
-run9/autosave_run9_epoch202.autosave
-run9/autosave_run9_epoch201.autosave
+#nets="""run8/autosave_run8_epoch233.autosave
+#run8/autosave_run8_epoch234.autosave
+#run9/autosave_run9_epoch234.autosave
+#run9/autosave_run9_epoch233.autosave
+#run9/autosave_run9_epoch232.autosave
+#run9/autosave_run9_epoch231.autosave
+#run9/autosave_run9_epoch230.autosave
+#run9/autosave_run9_epoch229.autosave
+#run9/autosave_run9_epoch228.autosave
+#run9/autosave_run9_epoch227.autosave
+#run9/autosave_run9_epoch226.autosave
+#run9/autosave_run9_epoch225.autosave
+#run9/autosave_run9_epoch224.autosave
+#run9/autosave_run9_epoch223.autosave
+#run9/autosave_run9_epoch222.autosave
+#run9/autosave_run9_epoch221.autosave
+#run9/autosave_run9_epoch220.autosave
+#run9/autosave_run9_epoch219.autosave
+#run9/autosave_run9_epoch218.autosave
+#run9/autosave_run9_epoch217.autosave
+#run9/autosave_run9_epoch216.autosave
+#run9/autosave_run9_epoch215.autosave
+#run9/autosave_run9_epoch214.autosave
+#run9/autosave_run9_epoch213.autosave
+#run9/autosave_run9_epoch212.autosave
+#run9/autosave_run9_epoch211.autosave
+#run9/autosave_run9_epoch210.autosave
+#run9/autosave_run9_epoch209.autosave
+#run9/autosave_run9_epoch208.autosave
+#run9/autosave_run9_epoch207.autosave
+#run9/autosave_run9_epoch206.autosave
+#run9/autosave_run9_epoch205.autosave
+#run9/autosave_run9_epoch204.autosave
+#run9/autosave_run9_epoch203.autosave
+#run9/autosave_run9_epoch202.autosave
+#run9/autosave_run9_epoch201.autosave
+nets="""run10/autosave_run10_epoch181.autosave
+run10/autosave_run10_epoch182.autosave
+run10/autosave_run10_epoch183.autosave
+run10/autosave_run10_epoch184.autosave
+run10/autosave_run10_epoch185.autosave
+run10/autosave_run10_epoch186.autosave
+run10/autosave_run10_epoch187.autosave
+run10/autosave_run10_epoch188.autosave
+run10/autosave_run10_epoch189.autosave
+run10/autosave_run10_epoch190.autosave
+run10/autosave_run10_epoch191.autosave
+run10/autosave_run10_epoch192.autosave
+run10/autosave_run10_epoch193.autosave
+run10/autosave_run10_epoch194.autosave
+run10/autosave_run10_epoch195.autosave
+run10/autosave_run10_epoch196.autosave
+run10/autosave_run10_epoch197.autosave
+run10/autosave_run10_epoch198.autosave
+run10/autosave_run10_epoch199.autosave
+run10/autosave_run10_epoch200.autosave
+run10/autosave_run10_epoch201.autosave
+run10/autosave_run10_epoch202.autosave
+run10/autosave_run10_epoch203.autosave
+run10/autosave_run10_epoch204.autosave
+run10/autosave_run10_epoch205.autosave
+run10/autosave_run10_epoch206.autosave
 """
 
 nets = [n.strip() for n in nets.split("\n") if len(n.strip()) > 0]

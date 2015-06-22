@@ -55,3 +55,10 @@ ch5 = [i for i in range(234, 200, -1)]
 for c in ch5:
 	print(pref5 + ("%03d" % c) + suf)
 	
+pref6 = "run10/autosave_run10_epoch"
+
+ch6 = [i for i in range(181, 207, 1)]
+
+for c in ch6:
+	print(pref6 + ("%03d" % c) + suf)
+	
