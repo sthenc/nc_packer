@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 
 
 
-def plot_spectrum_array(spectrum_data):
+def plot_spectrum_array(spectrum_data, savefile):
 	
 	# TODO adjust this
 	#vmin = 0
@@ -17,17 +17,23 @@ def plot_spectrum_array(spectrum_data):
 	vmax = 0
 	
 	ml.rcParams['image.cmap'] = 'nipy_spectral'
-
-	fig, axes = plt.subplots(nrows=1, ncols=1)
-
 	
-	a = axes.pcolormesh(spectrum_data.transpose(), vmin=vmin, vmax=vmax)
-	axes.set_aspect('auto')
+	#plt.pcolormesh(spectrum_data.transpose(), vmin=vmin, vmax=vmax)
+	#plt.axis("off")
 
-	plt.colorbar(a, orientation='horizontal')
+#	plt.colorbar(orientation='horizontal')
 
-	plt.tight_layout()
-	plt.show()
+	#plt.tight_layout()
+	#plt.savefig(savefile,bbox_inches='tight')
+	
+	fig = plt.figure()
+	#fig.set_size_inches(1, 1)
+	ax = plt.Axes(fig, [0., 0., 1.2, 1.2])
+	ax.set_axis_off()
+	fig.add_axes(ax)
+	ax.pcolormesh(spectrum_data.transpose(), vmin=vmin, vmax=vmax)
+	plt.savefig(savefile, dpi = 80)
+
 
 
 
@@ -62,4 +68,4 @@ if __name__ == "__main__":
 	
 	spec = wav2spectrum(fp)
 	
-	plot_spectrum_array(spec)
+	plot_spectrum_array(spec, fp + "_spectrum.png")
