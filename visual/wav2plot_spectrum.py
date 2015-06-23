@@ -25,7 +25,7 @@ def plot_spectrum_array(spectrum_data, savefile):
 	ax.set_ylim((0,spectrum_data.shape[1]))
 
 	fig.add_axes(ax)
-	ax.set_aspect("auto")
+	ax.set_aspect("equal")
 	ax.pcolormesh(spectrum_data.transpose(), vmin=vmin, vmax=vmax)
 	
 	#plt.colorbar(orientation='horizontal')
@@ -72,7 +72,7 @@ if __name__ == "__main__":
 	
 	for fp in fps:
 		file_name = dataroot + fp + suffix
-		save_name = outdir + fp + "_spectrum" + ext
+		save_name = outdir + "spectrum_" + fp + ext
 		spec = wav2spectrum(file_name)
 		
 		plot_spectrum_array(spec, save_name)

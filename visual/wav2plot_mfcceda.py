@@ -5,73 +5,51 @@ import features
 import scipy.io.wavfile as wav
 import matplotlib as ml
 import matplotlib.pyplot as plt
+import htkmfc as hm
 
-
-
-def plot_spectrum_array(spectrum_data, savefile):
+def plot_mfcceda_array(data_name, savefile):
 	
 	# TODO adjust this
 	#vmin = 0
 	#vmax = 200000000
-	vmin = -130
-	vmax = 0
+	
+	io_klasa = hm.HTKFeat_read(data_name)
+
+	data = io_klasa.getall()
+	
+	vmin = -60
+	vmax = 60
 	
 	ml.rcParams['image.cmap'] = 'nipy_spectral'
-	
-	
+		
 	fig = plt.figure()
-	
 
-	
 	ax = plt.Axes(fig, [0., 0., 1., 1.])
 	ax.set_axis_off()
-	ax.set_xlim((0,spectrum_data.shape[0]))
-	ax.set_ylim((0,spectrum_data.shape[1]))
+	ax.set_xlim((0,data.shape[0]))
+	ax.set_ylim((0,data.shape[1]))
 
 	fig.add_axes(ax)
-	ax.set_aspect("auto")
-	ax.pcolormesh(spectrum_data.transpose(), vmin=vmin, vmax=vmax)
+	ax.set_aspect("equal")
+	ax.pcolormesh(data.transpose(), vmin=vmin, vmax=vmax)
 	
 	#plt.colorbar(orientation='horizontal')
 
 	#plt.tight_layout()
 	plt.savefig(savefile,bbox_inches='tight')
+
+import os
+
+def wav2mfcceda(filepathin, filepathout):
+
+	# call openSMILE 
 	
-#	fig = plt.figure()
-#	#fig.set_size_inches(1, 1)
-#	ax = plt.Axes(fig, [0., 0., 1.2, 1.2])
-#	ax.set_axis_off()
-#	fig.add_axes(ax)
-#	ax.pcolormesh(spectrum_data.transpose(), vmin=vmin, vmax=vmax)
-#	plt.savefig(savefile, dpi = 80)
-
-
-
-
-def wav2spectrum(filepath):
-
-	(sr,sig) = wav.read(filepath)
-
-	#sigmono = sig[:, 0]
-	#print (sigmono)
+	command = "SMILExtract -C ../MFCC12_E_D_A.conf -logfile smile.log -noconsoleoutput 1 -appendLogfile 1 "
 	
-	# first frame the signals
-	# 25 ms frame with 10 ms step
-	# sr = 16000
-	frame_len = int(0.025 * sr)
-	frame_step = int(0.01 * sr)
+	command = command + " -I " + filepathin + " -O " + filepathout
 	
-	frame_data = features.sigproc.framesig(sig, frame_len, frame_step, winfunc=np.hamming)
+	return os.system(command)
 	
-	print (frame_data)
-	# then compute power spectrum
-	# use log power spectrum because the range of values was huge
-	ret = features.sigproc.logpowspec(frame_data, frame_len)
-	
-	print(np.max(np.max(ret)))
-	print(np.min(np.min(ret)))
-
-	return ret
 
 
 if __name__ == "__main__":
@@ -80,12 +58,17 @@ if __name__ == "__main__":
 	fps = [ "clean", "noise", "reverberated", "mix_m6dB" ] 
 	suffix = ".wav"
 	
-	outdir = "figures/"
-	ext = ".png"
+	mfccdir = "data/mfcc/"
+	mfext = ".mfcc"
+	
+	picdir = "figures/"
+	pext = ".png"
 	
 	for fp in fps:
 		file_name = dataroot + fp + suffix
-		save_name = outdir + fp + "_spectrum" + ext
-		spec = wav2spectrum(file_name)
+		mfcc_name = mfccdir + fp + mfext
+		save_name = picdir + "mfcceda_" + fp + pext
 		
-		plot_spectrum_array(spec, save_name)
+		spec = wav2mfcceda(file_name, mfcc_name)
+		
+		plot_mfcceda_array(mfcc_name, save_name)
