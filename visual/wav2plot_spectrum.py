@@ -10,7 +10,6 @@ import matplotlib.pyplot as plt
 
 def plot_spectrum_array(spectrum_data, savefile):
 	
-	# TODO adjust this
 	#vmin = 0
 	#vmax = 200000000
 	vmin = -130
@@ -18,10 +17,7 @@ def plot_spectrum_array(spectrum_data, savefile):
 	
 	ml.rcParams['image.cmap'] = 'nipy_spectral'
 	
-	
 	fig = plt.figure()
-	
-
 	
 	ax = plt.Axes(fig, [0., 0., 1., 1.])
 	ax.set_axis_off()
@@ -35,17 +31,8 @@ def plot_spectrum_array(spectrum_data, savefile):
 	#plt.colorbar(orientation='horizontal')
 
 	#plt.tight_layout()
-	plt.savefig(savefile,bbox_inches='tight')
+	plt.savefig(savefile,bbox_inches='tight', dpi=300)
 	
-#	fig = plt.figure()
-#	#fig.set_size_inches(1, 1)
-#	ax = plt.Axes(fig, [0., 0., 1.2, 1.2])
-#	ax.set_axis_off()
-#	fig.add_axes(ax)
-#	ax.pcolormesh(spectrum_data.transpose(), vmin=vmin, vmax=vmax)
-#	plt.savefig(savefile, dpi = 80)
-
-
 
 
 def wav2spectrum(filepath):
@@ -75,10 +62,17 @@ def wav2spectrum(filepath):
 
 
 if __name__ == "__main__":
-	fps = [ "data/clean.wav", "data/noise.wav", "data/reverberated.wav", "data/mix_m6dB.wav" ] 
 	
+	dataroot = "data/"
+	fps = [ "clean", "noise", "reverberated", "mix_m6dB" ] 
+	suffix = ".wav"
+	
+	outdir = "figures/"
+	ext = ".png"
 	
 	for fp in fps:
-		spec = wav2spectrum(fp)
+		file_name = dataroot + fp + suffix
+		save_name = outdir + fp + "_spectrum" + ext
+		spec = wav2spectrum(file_name)
 		
-		plot_spectrum_array(spec, fp + "_spectrum.png")
+		plot_spectrum_array(spec, save_name)
