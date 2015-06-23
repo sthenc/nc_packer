@@ -138,3 +138,4 @@ for f in filenames:
 	io_klasa = hm.HTKFeat_write(output_folder + f, veclen = 39, sampPeriod = 100000, paramKind = 2886) 
 
 	io_klasa.writeall(mfcc_data2)
+	io_klasa.close()
