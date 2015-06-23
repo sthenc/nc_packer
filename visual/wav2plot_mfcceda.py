@@ -114,7 +114,7 @@ def enhance(infile, outfile):
 
 	command_template = ["currennt", "--network", "./" + netname, "--train","false",
 		"--input_noise_sigma", "0", "--parallel_sequences", tmp_parallel, "--ff_output_format", "htk", "--ff_output_kind", "838",
-		"--feature_period", "10", "--cuda", tmp_cuda, "--revert_std", "true"]
+		"--feature_period", "10", "--cuda", tmp_cuda, "--revert_std", "false"]
 		
 	command = command_template[:]
 	
@@ -147,7 +147,8 @@ def normalize_tohtk(infile, outfile):
 	#new_means = htk_means - enh_means
 	#new_stddevs  = htk_stddevs / enh_stddevs
 	
-	data_norm = ((data - enh_means) / enh_stddevs) * htk_stddevs + htk_means
+	#data_norm = ((data - enh_means) / enh_stddevs) * htk_stddevs + htk_means
+	data_norm = data * htk_stddevs + htk_means
 	
 	io_klasa = hm.HTKFeat_write(outfile, veclen = 39, sampPeriod = 100000, paramKind = 2886)  # 2886 MFCC_E_D_A_Z, 838 MFCC_E_D_A
 	
@@ -161,8 +162,8 @@ def denormalize_trainoutput(infile, outfile):
 
 	data = io_klasa.getall()
 	
-	#data_norm = (data * enh_stddevs) + enh_means 
-	data_norm = data
+	data_norm = (data * enh_stddevs) + enh_means 
+	#data_norm = data
 	
 	io_klasa = hm.HTKFeat_write(outfile, veclen = 39, sampPeriod = 100000, paramKind = 2886)  # 2886 MFCC_E_D_A_Z, 838 MFCC_E_D_A
 	
@@ -208,7 +209,7 @@ if __name__ == "__main__":
 		plot_mfcceda_array(mfcc_norm, save_norm, norm=True)
 		
 		enhance(mfcc_name, mfcc_enhnorm)
-		plot_mfcceda_array(mfcc_enhnorm, save_enhnorm)
+		plot_mfcceda_array(mfcc_enhnorm, save_enhnorm, norm=True)
 		
 		normalize_tohtk(mfcc_enhnorm, mfcc_enhnormhtk)
 		plot_mfcceda_array(mfcc_enhnormhtk, save_enhnormhtk)
