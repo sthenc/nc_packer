@@ -13,26 +13,37 @@ def plot_spectrum_array(spectrum_data, savefile):
 	# TODO adjust this
 	#vmin = 0
 	#vmax = 200000000
-	vmin = -125
+	vmin = -130
 	vmax = 0
 	
 	ml.rcParams['image.cmap'] = 'nipy_spectral'
 	
-	#plt.pcolormesh(spectrum_data.transpose(), vmin=vmin, vmax=vmax)
-	#plt.axis("off")
-
-#	plt.colorbar(orientation='horizontal')
-
-	#plt.tight_layout()
-	#plt.savefig(savefile,bbox_inches='tight')
 	
 	fig = plt.figure()
-	#fig.set_size_inches(1, 1)
-	ax = plt.Axes(fig, [0., 0., 1.2, 1.2])
+	
+
+	
+	ax = plt.Axes(fig, [0., 0., 1., 1.])
 	ax.set_axis_off()
+	ax.set_xlim((0,spectrum_data.shape[0]))
+	ax.set_ylim((0,spectrum_data.shape[1]))
+
 	fig.add_axes(ax)
+	ax.set_aspect("auto")
 	ax.pcolormesh(spectrum_data.transpose(), vmin=vmin, vmax=vmax)
-	plt.savefig(savefile, dpi = 80)
+	
+	#plt.colorbar(orientation='horizontal')
+
+	#plt.tight_layout()
+	plt.savefig(savefile,bbox_inches='tight')
+	
+#	fig = plt.figure()
+#	#fig.set_size_inches(1, 1)
+#	ax = plt.Axes(fig, [0., 0., 1.2, 1.2])
+#	ax.set_axis_off()
+#	fig.add_axes(ax)
+#	ax.pcolormesh(spectrum_data.transpose(), vmin=vmin, vmax=vmax)
+#	plt.savefig(savefile, dpi = 80)
 
 
 
@@ -64,8 +75,10 @@ def wav2spectrum(filepath):
 
 
 if __name__ == "__main__":
-	fp = "data/clean.wav"
+	fps = [ "data/clean.wav", "data/noise.wav", "data/reverberated.wav", "data/mix_m6dB.wav" ] 
 	
-	spec = wav2spectrum(fp)
 	
-	plot_spectrum_array(spec, fp + "_spectrum.png")
+	for fp in fps:
+		spec = wav2spectrum(fp)
+		
+		plot_spectrum_array(spec, fp + "_spectrum.png")
