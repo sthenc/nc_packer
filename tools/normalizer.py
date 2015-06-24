@@ -37,12 +37,12 @@ htk_stds = np.array([ 5.01052426,  6.0709671 ,  6.3988848 ,  6.4326679 ,  7.0528
         0.61024786,  0.62611209,  0.66455343,  0.68386709,  0.67936381,
         0.66838117,  0.66832734,  0.62084678,  0.09018718])
 
-#htk_means[12] = 0.0
-#htk_means[25] = 0.0
-#htk_means[38] = 0.0
-#htk_stds [12] = 1.0
-#htk_stds [25] = 1.0
-#htk_stds [38] = 1.0
+htk_means[12] = 0.0
+htk_means[25] = 0.0
+htk_means[38] = 0.0
+htk_stds [12] = 1.0
+htk_stds [25] = 1.0
+htk_stds [38] = 1.0
              
 import json
 
@@ -53,19 +53,19 @@ infajl.close()
 ops_means = np.array(tmp[0])
 ops_stds = np.array(tmp[1])
 
-#ops_means[12] = 0.0
-#ops_means[25] = 0.0
-#ops_means[38] = 0.0
-#ops_stds [12] = 1.0
-#ops_stds [25] = 1.0
-#ops_stds [38] = 1.0
+ops_means[12] = 0.0
+ops_means[25] = 0.0
+ops_means[38] = 0.0
+ops_stds [12] = 1.0
+ops_stds [25] = 1.0
+ops_stds [38] = 1.0
              
 
 print (ops_means)
 print (ops_stds)
 
-#new_means = ops_means - htk_means
-#new_stds  = ops_stds / htk_stds
+new_means = ops_means - htk_means
+new_stds  = ops_stds / htk_stds
 
 #x = np.linspace(1, len(htk_means), len(htk_means))
 
@@ -131,8 +131,7 @@ for f in filenames:
 	
 	#plot_mfcc_array(mfcc_data)
 	
-	# mfcc_data2 = (mfcc_data - new_means) / new_stds
-	mfcc_data2 = ((mfcc_data - ops_means) / ops_stds) * htk_stds + htk_means
+	mfcc_data2 = (mfcc_data - new_means) / new_stds
 	
 	#plot_mfcc_array(mfcc_data2)
 	
